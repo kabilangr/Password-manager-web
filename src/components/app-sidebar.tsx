@@ -9,8 +9,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarHeader,
+    SidebarFooter, // Added import
 } from "@/components/ui/sidebar"
 import Link from "next/link"
+import { ModeToggle } from "@/components/mode-toggle"
 
 const items = [
     {
@@ -63,6 +65,11 @@ export function AppSidebar() {
                     </SidebarGroupContent>
                 </SidebarGroup>
             </SidebarContent>
+            <SidebarFooter>
+                <div className="p-2">
+                    <ModeToggle />
+                </div>
+            </SidebarFooter>
         </Sidebar>
     )
 }

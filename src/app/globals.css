@@ -47,76 +47,83 @@
 
 :root {
   --radius: 0.75rem;
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  
+  /* Light Mode - Premium Zinc/Slate */
+  --background: #ffffff;
+  --foreground: #09090b; /* Zinc 950 */
+
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #09090b;
+  
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  
-  --primary: #10b981;
+  --popover-foreground: #09090b;
+
+  --primary: #10b981; /* Emerald 500 */
   --primary-foreground: #ffffff;
-  
-  --secondary: #3b82f6;
-  --secondary-foreground: #ffffff;
-  
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  
-  --accent: #f1f5f9;
-  --accent-foreground: #0f172a;
-  
+
+  --secondary: #f4f4f5; /* Zinc 100 */
+  --secondary-foreground: #18181b; /* Zinc 900 */
+
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a; /* Zinc 500 */
+
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  
-  --border: #e2e8f0;
-  --input: #e2e8f0;
+
+  --border: #e4e4e7; /* Zinc 200 */
+  --input: #e4e4e7;
   --ring: #10b981;
 
-  --sidebar: #ffffff;
-  --sidebar-foreground: #475569;
+  --sidebar: #f8fafc; /* Slate 50 */
+  --sidebar-foreground: #0f172a; /* Slate 900 */
   --sidebar-primary: #10b981;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f1f5f9;
+  --sidebar-accent: #e2e8f0; /* Slate 200 */
   --sidebar-accent-foreground: #0f172a;
   --sidebar-border: #e2e8f0;
   --sidebar-ring: #10b981;
 }
 
 .dark {
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --card: #1e293b;
-  --card-foreground: #f1f5f9;
-  --popover: #1e293b;
-  --popover-foreground: #f1f5f9;
-  
-  --primary: #34d399;
-  --primary-foreground: #064e3b;
-  
-  --secondary: #60a5fa;
-  --secondary-foreground: #1e3a8a;
-  
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  
-  --accent: #334155;
-  --accent-foreground: #f1f5f9;
-  
-  --destructive: #f87171;
-  --destructive-foreground: #ffffff;
-  
-  --border: #334155;
-  --input: #334155;
+  /* Dark Mode - Deep Zinc */
+  --background: #09090b; /* Zinc 950 */
+  --foreground: #fafafa; /* Zinc 50 */
+
+  --card: #09090b;
+  --card-foreground: #fafafa;
+
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+
+  --primary: #34d399; /* Emerald 400 */
+  --primary-foreground: #022c22; /* Emerald 950 */
+
+  --secondary: #27272a; /* Zinc 800 */
+  --secondary-foreground: #fafafa;
+
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa; /* Zinc 400 */
+
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+
+  --destructive: #7f1d1d; /* Red 900 */
+  --destructive-foreground: #fef2f2; /* Red 50 */
+
+  --border: #27272a;
+  --input: #27272a;
   --ring: #34d399;
 
-  --sidebar: #1e293b;
-  --sidebar-foreground: #94a3b8;
+  --sidebar: #020617; /* Slate 950 */
+  --sidebar-foreground: #f8fafc; /* Slate 50 */
   --sidebar-primary: #10b981;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #334155;
-  --sidebar-accent-foreground: #f1f5f9;
-  --sidebar-border: #334155;
+  --sidebar-accent: #1e293b; /* Slate 800 */
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #1e293b;
   --sidebar-ring: #10b981;
 }
 
