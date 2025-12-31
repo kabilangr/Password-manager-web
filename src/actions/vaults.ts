@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth"
 import { db } from "@/db"
-import { vaults, secrets } from "@/db/schema"
+import { vaults, secrets, members } from "@/db/schema"
 import { eq, and } from "drizzle-orm"
 import { headers } from "next/headers"
 import { revalidatePath } from "next/cache"
@@ -12,19 +12,38 @@ import { ActionResponse } from "@/interface/AppError"
 
 // --- Vaults ---
 
-export async function createVault(name: string): Promise<ActionResponse<{ vaultId: string }>> {
+export async function createVault(name: string, organizationId?: string): Promise<ActionResponse<{ vaultId: string }>> {
     const session = await auth.api.getSession({
         headers: await headers()
     })
     if (!session) return { success: false, error: { code: 'AUTH_UNAUTHORIZED', message: "Authentication required" } }
 
     try {
+        let finalOwnerId: string | null = session.user.id
+        let finalOrgId: string | null = null
+
+        if (organizationId) {
+            // Verify membership
+            const membership = await db.query.members.findFirst({
+                where: and(
+                    eq(members.organizationId, organizationId),
+                    eq(members.userId, session.user.id)
+                )
+            })
+
+            if (!membership) {
+                return { success: false, error: { code: 'AUTH_UNAUTHORIZED', message: "Not a member of this organization" } }
+            }
+            finalOwnerId = null // Org vaults don't have a single owner user
+            finalOrgId = organizationId
+        }
+
         const vaultId = uuidv4()
         await db.insert(vaults).values({
             id: vaultId,
             name,
-            ownerId: session.user.id,
-            // orgId: null // TODO: Handle orgs
+            ownerId: finalOwnerId,
+            organizationId: finalOrgId
         })
 
         await logAudit({

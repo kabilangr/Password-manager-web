@@ -12,8 +12,11 @@ export const auth = betterAuth({
     },
     plugins: [
         organization({
-            async sendInvitationEmail() {
-                // TODO: Implement email sending
+            async sendInvitationEmail(data) {
+                // STUB: Integration point for email service (e.g., Resend, SendGrid)
+                if (process.env.NODE_ENV === "development") {
+                    console.log(`[DEV] Email Stub: Inviting ${data.email} to ${data.organization.name} by ${data.inviter.user.name}`);
+                }
             },
         }),
         twoFactor(),
