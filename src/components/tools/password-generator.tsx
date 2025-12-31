@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useEffect } from "react"
+import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
@@ -13,7 +13,6 @@ import { Input } from "@/components/ui/input"
 import { GENERATOR_VALUES } from "@/values/constants"
 
 export function PasswordGenerator() {
-    const [password, setPassword] = useState("")
     const [length, setLength] = useState(GENERATOR_VALUES.LIMITS.DEFAULT_LENGTH)
     const [options, setOptions] = useState({
         uppercase: true,
@@ -21,9 +20,10 @@ export function PasswordGenerator() {
         numbers: true,
         symbols: true,
     })
+    const [refreshKey, setRefreshKey] = useState(0)
     const [copied, setCopied] = useState(false)
 
-    const generatePassword = useCallback(() => {
+    const password = useMemo(() => {
         const { CHAR_SETS } = GENERATOR_VALUES
 
         let chars = ""
@@ -32,7 +32,7 @@ export function PasswordGenerator() {
         if (options.numbers) chars += CHAR_SETS.NUMBERS
         if (options.symbols) chars += CHAR_SETS.SYMBOLS
 
-        if (chars === "") return
+        if (chars === "" || typeof window === 'undefined') return ""
 
         let generated = ""
         const cryptoObj = window.crypto;
@@ -43,14 +43,13 @@ export function PasswordGenerator() {
             generated += chars[randomValues[i] % chars.length];
         }
 
-        setPassword(generated)
-        setCopied(false)
-    }, [length, options])
+        return generated
+    }, [length, options, refreshKey]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Initial generation
-    useEffect(() => {
-        generatePassword()
-    }, [generatePassword])
+    const handleRefresh = () => {
+        setRefreshKey(prev => prev + 1)
+        setCopied(false)
+    }
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(password)
@@ -71,7 +70,7 @@ export function PasswordGenerator() {
                         readOnly
                         className="font-mono text-lg tracking-wider"
                     />
-                    <Button variant="outline" size="icon" onClick={generatePassword}>
+                    <Button variant="outline" size="icon" onClick={handleRefresh}>
                         <RefreshCw className="h-4 w-4" />
                     </Button>
                     <Button variant="outline" size="icon" onClick={copyToClipboard}>
@@ -135,6 +134,6 @@ export function PasswordGenerator() {
 
 declare global {
     interface Window {
-        msCrypto?: any;
+        msCrypto?: unknown;
     }
 }

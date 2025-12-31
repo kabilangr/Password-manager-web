@@ -5,7 +5,7 @@ import { db } from "@/db"
 import { users } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import { headers } from "next/headers"
-import { ActionResponse } from "@/interface/AppError"
+import { ActionResponse, ErrorCode } from "@/interface/AppError"
 
 export async function registerUser(payload: {
     name: string
@@ -42,7 +42,7 @@ export async function registerUser(payload: {
     } catch (error: unknown) {
         console.error("Registration error:", error)
         let message = "Registration failed"
-        let code: any = 'INTERNAL_ERROR'
+        let code: string = 'INTERNAL_ERROR'
 
         if (error instanceof Error) {
             // @ts-expect-error - BetterAuth errors might have a body
@@ -53,7 +53,7 @@ export async function registerUser(payload: {
 
         return {
             success: false,
-            error: { code: code as any || 'INTERNAL_ERROR', message }
+            error: { code: (code as ErrorCode) || ('INTERNAL_ERROR' as ErrorCode), message }
         }
     }
 }

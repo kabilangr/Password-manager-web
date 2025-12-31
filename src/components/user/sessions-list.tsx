@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { authClient } from "@/lib/auth-client"
 import { toast } from "sonner"
-import { Laptop, Smartphone, Globe } from "lucide-react"
+import { Globe } from "lucide-react"
 
 interface Session {
     id: string
@@ -48,7 +48,7 @@ export function SessionsList() {
             // improved retry/refresh
             setSessions(sessions.filter(s => s.id !== sessionId))
             toast.success("Session revoked")
-        } catch (e) {
+        } catch {
             toast.error("Failed to revoke session")
         }
     }

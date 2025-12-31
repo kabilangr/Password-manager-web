@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { authClient } from "@/lib/auth-client"
@@ -10,7 +10,6 @@ import { toast } from "sonner"
 import { QRCode } from "react-qrcode-logo"
 
 export function TwoFactorSettings() {
-    const [isEnabled, setIsEnabled] = useState(false) // Ideally fetch from session
     const [qrURI, setQrURI] = useState<string | null>(null)
     const [totpCode, setTotpCode] = useState("")
     const [backupCodes, setBackupCodes] = useState<string[]>([])

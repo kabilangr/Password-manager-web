@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { db } from "@/db"
-import { secrets, vaults, users } from "@/db/schema"
-import { eq, and, like } from "drizzle-orm"
+import { secrets, vaults } from "@/db/schema"
+import { eq } from "drizzle-orm"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
 

@@ -18,7 +18,7 @@ export function generateSalt(): Uint8Array {
 export async function deriveKey(password: string, salt: Uint8Array): Promise<CryptoKey> {
     try {
         // Argon2id parameters recommended for password hashing
-        const keyBytes = await argon2id({
+        await argon2id({
             password,
             salt,
             parallelism: Number(process.env.NEXT_PUBLIC_ARGON2_PARALLELISM) || CRYPTO_VALUES.ARGON2.PARALLELISM,
@@ -135,7 +135,7 @@ export async function generateRSAKeyPair(): Promise<CryptoKeyPair> {
         {
             name: "RSA-OAEP",
             modulusLength: CRYPTO_VALUES.RSA_MODULUS_BITS,
-            publicExponent: new Uint8Array([1, 0, 1]) as any,
+            publicExponent: new Uint8Array([1, 0, 1]),
             hash: "SHA-256",
         },
         true,
@@ -157,7 +157,7 @@ export async function exportKey(key: CryptoKey): Promise<string> {
 // Helpers
 export function arrayBufferToBase64(buffer: BufferSource): string {
     let binary = '';
-    const bytes = new Uint8Array(buffer as any);
+    const bytes = new Uint8Array(buffer as ArrayBuffer);
     const len = bytes.byteLength;
     for (let i = 0; i < len; i++) {
         binary += String.fromCharCode(bytes[i]);

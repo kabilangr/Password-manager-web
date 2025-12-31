@@ -12,9 +12,8 @@ export const auth = betterAuth({
     },
     plugins: [
         organization({
-            async sendInvitationEmail(data) {
+            async sendInvitationEmail() {
                 // TODO: Implement email sending
-                console.log("Send invitation email to", data.email, "for org", data.organization.name);
             },
         }),
         twoFactor(),
